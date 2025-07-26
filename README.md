@@ -1,35 +1,31 @@
-### initialize
+# Terraform EKS Cluster Deployment
 
-    terraform init
+This project provisions an **Elastic Kubernetes Service (EKS)** cluster on AWS using the official [terraform-aws-modules/eks/aws](https://github.com/terraform-aws-modules/terraform-aws-eks) module.
 
-### preview terraform actions
+---
 
-    terraform plan
+## 🔧 Project Structure
 
-### apply configuration with variables
+- **EKS Cluster**: `myapp-eks-cluster` using Terraform AWS module
+- **VPC Module (Assumed)**: Provides private subnets and VPC ID for the EKS module
+- **Managed Node Group**: 3 `t2.small` instances for development use
 
-    terraform apply -var-file terraform-dev.tfvars
+---
 
-### destroy a single resource
+## 📁 Files
 
-    terraform destroy -target aws_vpc.myapp-vpc
+- `main.tf` — Main Terraform configuration
+- `vpc.tf` — Contains VPC and subnet definitions (must output `vpc_id` and `private_subnets`)
+- `eks-cluster.tf` — Defines the EKS cluster module
+- `nginx-config.yaml` — Example Kubernetes manifest
+- `README.md` — You're reading it 😎
 
-### destroy everything fromtf files
+---
 
-    terraform destroy
+## 🚀 How to Use
 
-### show resources and components from current state
+### 1. Clone the Repository
+```bash
+git clone https://gitlab.com/<your-username>/terraform-deploy-eks.git
+cd terraform-deploy-eks
 
-    terraform state list
-
-### show current state of a specific resource/data
-
-    terraform state show aws_vpc.myapp-vpc    
-
-### set avail_zone as custom tf environment variable - before apply
-
-    export TF_VAR_avail_zone="eu-west-3a"
-
-### for debuggin in TF
-    
-    export TF_LOG=TRACE    
